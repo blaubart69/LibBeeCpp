@@ -34,30 +34,42 @@ namespace TestLibMsgProps
 			{
 				return GetLastError();
 			}
-			else
+			else if (SetFilePointer(*fp, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
 			{
+				return INVALID_SET_FILE_POINTER;
 			}
 
 			return 0;
 		}
-		TEST_METHOD(simple)
+		bool WriteReadCheck(const std::string& in, const DWORD readSize)
 		{
-			std::string in{ "Bernhard" };
-
 			HANDLE fp;
-			Assert::AreEqual<DWORD>   (0, CreateTestFile(in, &fp));
-			Assert::AreNotEqual<DWORD>(INVALID_SET_FILE_POINTER, SetFilePointer(fp, 0, NULL, FILE_BEGIN));
+			Assert::AreEqual<DWORD>(0, CreateTestFile(in, &fp));
 
 			std::vector<BYTE> vec;
-			Assert::AreEqual<DWORD>(0, ReadFileToVector(fp, &vec, 3));
+			Assert::AreEqual<DWORD>(0, ReadFileToVector(fp, &vec, readSize));
 			Assert::IsTrue(CloseHandle(fp) == TRUE);
 
 			Assert::AreEqual(in.length(), vec.size());
 
-			Assert::IsTrue(std::equal(in.begin(), in.end(), vec.begin(), vec.end(),
-				[](const char i, const BYTE v) {
-					return i == v;
-				}));
+			Assert::IsTrue(std::equal(in.begin(), in.end(), vec.begin(), vec.end()));
+			vec[0] = '\t';
+			Assert::IsFalse(std::equal(in.begin(), in.end(), vec.begin(), vec.end()));
+
+			return true;
+		}
+		TEST_METHOD(ReadBufferBigEnough)
+		{
+			Assert::IsTrue(WriteReadCheck(std::string{ "Bernhard" }, 4096));
+		}
+		TEST_METHOD(ReadBufferSmall)
+		{
+			Assert::IsTrue(WriteReadCheck(std::string{ "Bernhard" }, 3));
+		}
+		TEST_METHOD(ReadBufferSameSizeAsInput)
+		{
+			std::string in{ "Bernhard" };
+			Assert::IsTrue(WriteReadCheck(in, in.length() ));
 		}
 	};
 }

@@ -202,7 +202,7 @@ bool isFile(const DWORD dwFileAttributes)
 	return (dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0;
 }
 //-----------------------------------------------------------------------------------------------
-DWORD ReadFileToVector(const HANDLE fp, std::vector<BYTE>* vec, const DWORD chunkLenRead = 4096)
+DWORD ReadFileToVector(const HANDLE fp, std::vector<BYTE>* vec, const DWORD chunkLenRead)
 //-----------------------------------------------------------------------------------------------
 {
 	vec->clear();

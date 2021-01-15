@@ -17,4 +17,4 @@ void ltrim(std::wstring& s, const wchar_t charToTrim);
 bool isDirectory(const DWORD dwFileAttributes);
 bool isFile(const DWORD dwFileAttributes);
 DWORD align_to_DWORD(DWORD length);
-DWORD ReadFileToVector(const HANDLE fp, std::vector<BYTE>* vec, const DWORD chunkLenRead);
+DWORD ReadFileToVector(const HANDLE fp, std::vector<BYTE>* vec, const DWORD chunkLenRead = 4096);
