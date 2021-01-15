@@ -9,4 +9,21 @@
 
 // add headers that you want to pre-compile here
 
+#include "../LibBeeCpp/pch.h"
+
+/*
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
+#include <utility>
+#include <vector>
+#include <string>
+#include <string_view>
+#include <optional>
+#include <functional>
+#include <algorithm>
+
+#include "../LibBeeCpp/Util.h"
+#include "../LibBeeCpp/SpiGetoptLong.h"
+*/
 #endif //PCH_H

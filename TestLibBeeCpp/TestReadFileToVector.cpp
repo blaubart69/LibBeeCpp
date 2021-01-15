@@ -30,7 +30,7 @@ namespace TestLibMsgProps
 			{
 				return GetLastError();
 			}
-			else if (DWORD written; !WriteFile(*fp, content.data(), content.length(), &written, NULL))
+			else if (DWORD written; !WriteFile(*fp, content.data(), (DWORD)content.length(), &written, NULL))
 			{
 				return GetLastError();
 			}

@@ -1,6 +1,5 @@
 #pragma once
 
-std::wstring to_wstring(const PROPVARIANT& prop);
 ULONGLONG TwoDWORDsToULongLong(DWORD low, DWORD high);
 bool isFiletimeEqual(_In_ FILETIME a, _In_ FILETIME b);
 BOOL ConvertFiletimeToLocalTime(const FILETIME* filetime, SYSTEMTIME* localTime);
@@ -18,4 +17,4 @@ void ltrim(std::wstring& s, const wchar_t charToTrim);
 bool isDirectory(const DWORD dwFileAttributes);
 bool isFile(const DWORD dwFileAttributes);
 DWORD align_to_DWORD(DWORD length);
-DWORD ReadFileToVector(const HANDLE fp, std::vector<BYTE>* vec, const size_t chunkLenRead);
+DWORD ReadFileToVector(const HANDLE fp, std::vector<BYTE>* vec, const DWORD chunkLenRead);
